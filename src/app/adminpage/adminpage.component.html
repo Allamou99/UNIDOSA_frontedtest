@@ -1,0 +1,56 @@
+<div [formGroup]="QuestionForm">
+    <div formArrayName="questions">
+        <div *ngFor="let questionForm of questions.controls; let i = index">
+            <div [formGroup]="questionForm" fxLayout="column">
+                <div>
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <input matInput
+                               formControlName="enonce"
+                               placeholder="Enonce">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" fxFlex="40%">
+                        <mat-select formControlName="type"
+                                placeholder="Type question">
+                            <mat-option value="QCM">QCM</mat-option>
+                            <mat-option value="QCU">QCU</mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                </div>
+
+                <div formArrayName="reponses" class="reponses">
+                    <div *ngFor="let skill of questionsreponse(i).controls; let reponsesIndex=index">
+                        <div [formGroup]="skill">
+                            <mat-form-field appearance="fill">
+                                <input matInput
+                                       formControlName="proposition"
+                                       placeholder="Proposition {{index}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div formArrayName="bonnerep" class="bonnerep">
+                    <div *ngFor="let skill of bonnereponsesquestion(i).controls; let reponsesIndex=index">
+                        <div [formGroup]="skill">
+                            <mat-form-field appearance="fill">
+                                <input matInput
+                                       formControlName="bonneRep"
+                                       placeholder="La bonne reponse {{index}}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="addQuestionReponse(i)" class="addprop">Add Propositon</button>
+                <button (click)="addBonneReponse(i)" class="addprop">Add nouvelle bonne reponse</button>
+
+                        
+            </div>
+        </div>
+    </div>
+  
+    <button (click)="addQuestion()">
+        add
+    </button>
+</div>
+<button (click)="getQuestion()">Save</button>
